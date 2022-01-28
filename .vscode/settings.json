@@ -27,5 +27,4 @@
         "org.mockito.Answers.*"
     ],
     "extensions.ignoreRecommendations" : true,
-    "extensions.showRecommendationsOnlyOnDemand" : true
 }
