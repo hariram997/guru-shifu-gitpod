@@ -6,7 +6,7 @@
         "**/.hg": true,
         "**/CVS": true,
         "**/.DS_Store": true,
-        "**/.*":true,
+        "*.*":true,
         "**/m2-repository":true
     },
     "java.project.importOnFirstTimeStartup": "automatic",
