@@ -41,7 +41,8 @@ getIdToken() {
   echo ""
 }
 
-echo "Please Enter your Details Below ...."
+echo ""
+echo -e "\e[1;31m Please Enter your Details Below\e[0m"
 getIdToken
 
 while [ $HTTP_RESPONSE != "200" ]; do
