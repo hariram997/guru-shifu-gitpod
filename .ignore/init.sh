@@ -49,10 +49,11 @@ while [ $IDTOKEN == null ]; do
 done
 
 echo -e "\e[1;32m------------User Authenticated...--------------------\e[0m"
-ARTIFACT_URL=`curl -H "Authorization: $IDTOKEN" $GATEWAY_ENDPOINT`
+ARTIFACT_URL=`curl -H -s "Authorization: $IDTOKEN" $GATEWAY_ENDPOINT`
 
 
 echo "Artifact url obtained....."
+echo ""
 echo -e "\e[1;34m $(timestamp) --------- Starting download of artifact ... --------------\e[0m"
 curl  --output guru-shifu.tar.gz "$ARTIFACT_URL"
 echo "$(timestamp) Artifact download complete."
