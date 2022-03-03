@@ -53,10 +53,10 @@ ARTIFACT_URL=`curl -H "Authorization: $IDTOKEN" $GATEWAY_ENDPOINT`
 
 
 echo "Artifact url obtained....."
-echo "$(timestamp) --------- Starting download of artifact ... --------------"
-curl -s --output guru-shifu.tar.gz "$ARTIFACT_URL"
+echo -e "\e[1;34m $(timestamp) --------- Starting download of artifact ... --------------\e[0m"
+curl  --output guru-shifu.tar.gz "$ARTIFACT_URL"
 echo "$(timestamp) Artifact download complete."
-echo "$(timestamp) Unzipping guru-shifu tarball.."
+echo "$(timestamp) Unzipping guru-shifu tarball..."
 tar -xf guru-shifu.tar.gz
 echo "$(timestamp) Unzip complete"
 mkdir /workspace/guru-shifu-gitpod/m2-repository
