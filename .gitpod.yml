@@ -1,6 +1,6 @@
 tasks:
   - before: clear && echo 'Setting up guru shifu. This may take around 5 minutes...'
-    init: ./.ignore/init.sh  >> .ignore/log.txt
+    init: ./.ignore/init.sh
     command: ./.ignore/start.sh  >> .ignore/log.txt && cat .ignore/banner.txt
 
 ports:
