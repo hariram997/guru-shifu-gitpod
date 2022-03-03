@@ -48,19 +48,17 @@ while [ $IDTOKEN == null ]; do
 done
 
 echo "Authenticated user ..."
-echo "Started the downloading..."
 ARTIFACT_URL=`curl -H "Authorization: $IDTOKEN" $GATEWAY_ENDPOINT`
-curl -s --output myfile.sh $ARTIFACT_URL
 
 
-
+echo "Artifact url obtained....."
 echo "$(timestamp) Starting download of artifact ..."
 curl -s --output guru-shifu.tar.gz "$ARTIFACT_URL"
 echo "$(timestamp) Artifact download complete."
 echo "$(timestamp) Unzipping guru-shifu tarball.."
 tar -xf guru-shifu.tar.gz
 echo "$(timestamp) Unzip complete"
-mkdir /workspace/gitpod/m2-repository
+mkdir /workspace/guru-shifu-gitpod/m2-repository
 printf '<settings>\n  <localRepository>/workspace/gitpod/m2-repository/</localRepository>\n</settings>\n' > /home/gitpod/.m2/settings.xml
 echo "$(timestamp) Loading guru-shifu images..."
 docker load -i guru-shifu-images.tar.gz
