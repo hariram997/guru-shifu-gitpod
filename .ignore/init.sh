@@ -43,16 +43,17 @@ echo "Please Enter your Details Below ...."
 getIdToken
 
 while [ $IDTOKEN == null ]; do
-  echo "Enter valid credentials..."
+  echo -e "\e[1;31m------------Enter valid credentials...--------------------\e[0m"
+  echo ""
   getIdToken
 done
 
-echo "Authenticated user ..."
+echo -e "\e[1;32m------------User Authenticated...--------------------\e[0m"
 ARTIFACT_URL=`curl -H "Authorization: $IDTOKEN" $GATEWAY_ENDPOINT`
 
 
 echo "Artifact url obtained....."
-echo "$(timestamp) Starting download of artifact ..."
+echo "$(timestamp) --------- Starting download of artifact ... --------------"
 curl -s --output guru-shifu.tar.gz "$ARTIFACT_URL"
 echo "$(timestamp) Artifact download complete."
 echo "$(timestamp) Unzipping guru-shifu tarball.."
