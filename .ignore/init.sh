@@ -53,7 +53,11 @@ done
 
 echo -e "\e[1;32m------------User Authenticated...--------------------\e[0m"
 IDTOKEN=$(cat response.txt | jq -r .AuthenticationResult.IdToken)
+echo "id token"
+echo $IDTOKEN
 ARTIFACT_URL=`curl -H -s "Authorization: $IDTOKEN" $GATEWAY_ENDPOINT`
+echo "url ...."
+echo $ARTFACT_URL
 rm response.txt
 
 echo "Artifact url obtained....."
