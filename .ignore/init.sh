@@ -38,33 +38,31 @@ getIdToken() {
   BODY='{"ClientId": "'"$CLIENT_ID"'","AuthParameters": {"USERNAME": "'"$USER_NAME"'","PASSWORD": "'"$PASSWORD"'"},"AuthFlow": "USER_PASSWORD_AUTH"}'
   HTTP_RESPONSE=$(curl -s -o response.txt -w "%{http_code}"  -XPOST -H "$HEADER1" -H "$HEADER2" -d "$BODY" 'https://cognito-idp.ap-south-1.amazonaws.com/')
   echo ""
-  echo ""
 }
 
 echo ""
-echo -e "\e[1;32m Please Enter your Details Below\e[0m"
+echo -e "\e[1;32mPlease Enter your Details Below\e[0m"
 getIdToken
 
 while [ $HTTP_RESPONSE != "200" ]; do
   cat response.txt | jq -r .message
-  echo -e "\e[1;31m------------ Enter valid credentials...--------------------\e[0m"
+  echo -e "\e[1;31m------------Enter valid credentials...--------------------\e[0m"
   getIdToken
 done
 
 echo -e "\e[1;32m------------User Authenticated...--------------------\e[0m"
 IDTOKEN=$(cat response.txt | jq -r .AuthenticationResult.IdToken)
-echo "id token"
-echo $IDTOKEN
+
 ARTIFACT_URL=`curl -s -H "Authorization: $IDTOKEN" $GATEWAY_ENDPOINT`
-echo "url ...."
-echo $ARTFACT_URL
+
 rm response.txt
 
 echo "Artifact url obtained....."
-echo ""
-echo -e "\e[1;34m $(timestamp) --------- Starting download of artifact ... --------------\e[0m"
+echo -e "\e[1;34m $(timestamp) --------- Downloading the artifacts ... --------------\e[0m"
 curl  --output guru-shifu.tar.gz "$ARTIFACT_URL"
 echo "$(timestamp) Artifact download complete."
+
+
 echo "$(timestamp) Unzipping guru-shifu tarball..."
 tar -xf guru-shifu.tar.gz
 echo "$(timestamp) Unzip complete"
