@@ -11,6 +11,7 @@ cd $DIR
 IDTOKEN=null
 GATEWAY_ENDPOINT=null
 CLIENT_ID=null
+HTTP_RESPONSE=null
 HEADER1='X-Amz-Target: AWSCognitoIdentityProviderService.InitiateAuth'
 HEADER2='Content-Type: application/x-amz-json-1.1'
 
@@ -35,22 +36,24 @@ getIdToken() {
   read -p "Enter your email : " USER_NAME
   read -s -p "Enter your password : " PASSWORD
   BODY='{"ClientId": "'"$CLIENT_ID"'","AuthParameters": {"USERNAME": "'"$USER_NAME"'","PASSWORD": "'"$PASSWORD"'"},"AuthFlow": "USER_PASSWORD_AUTH"}'
-  IDTOKEN=`curl -s -XPOST -H "$HEADER1" -H "$HEADER2" -d "$BODY" 'https://cognito-idp.ap-south-1.amazonaws.com/' | jq -r .AuthenticationResult.IdToken`
-  echo
+  HTTP_RESPONSE=$(curl -s -o response.txt -w "%{http_code}"  -XPOST -H "$HEADER1" -H "$HEADER2" -d "$BODY" 'https://cognito-idp.ap-south-1.amazonaws.com/')
+  echo ""
+  echo ""
 }
 
 echo "Please Enter your Details Below ...."
 getIdToken
 
-while [ $IDTOKEN == null ]; do
-  echo -e "\e[1;31m------------Enter valid credentials...--------------------\e[0m"
-  echo ""
+while [ $HTTP_RESPONSE != "200" ]; do
+  cat response.txt | jq -r .message
+  echo -e "\e[1;31m------------ Enter valid credentials...--------------------\e[0m"
   getIdToken
 done
 
 echo -e "\e[1;32m------------User Authenticated...--------------------\e[0m"
+IDTOKEN=$(cat response.txt | jq -r .AuthenticationResult.IdToken)
 ARTIFACT_URL=`curl -H -s "Authorization: $IDTOKEN" $GATEWAY_ENDPOINT`
-
+rm response.txt
 
 echo "Artifact url obtained....."
 echo ""
