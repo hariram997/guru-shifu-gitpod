@@ -53,9 +53,17 @@ done
 echo -e "\e[1;32m------------User Authenticated...--------------------\e[0m"
 IDTOKEN=$(cat response.txt | jq -r .AuthenticationResult.IdToken)
 
-ARTIFACT_URL=`curl -s -H "Authorization: $IDTOKEN" $GATEWAY_ENDPOINT`
+HTTP_RESPONSE=$(curl -s -o signedurl.txt -w "%{http_code}" -H "Authorization: $IDTOKEN" $GATEWAY_ENDPOINT)
 
+while [ $HTTP_RESPONSE != "200" ]; do
+  HTTP_RESPONSE=$(curl -s -o signedurl.txt -w "%{http_code}" -H "Authorization: $IDTOKEN" $GATEWAY_ENDPOINT)
+done
+
+cat signedurl.txt
+
+ARTIFACT_URL=$(cat signedurl.txt)
 rm response.txt
+rm signedurl.txt
 
 echo "Artifact url obtained....."
 echo -e "\e[1;34m $(timestamp) --------- Downloading the artifacts ... --------------\e[0m"
