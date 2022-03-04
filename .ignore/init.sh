@@ -55,12 +55,10 @@ IDTOKEN=$(cat response.txt | jq -r .AuthenticationResult.IdToken)
 
 HTTP_RESPONSE=$(curl -s -o signedurl.txt -w "%{http_code}" -H "Authorization: $IDTOKEN" $GATEWAY_ENDPOINT)
 
-if [ $HTTP_RESPONSE == "404" ]
+if [ $HTTP_RESPONSE != "200" ]
 then
   echo -e "\e[1;31mResource Not Found ...\e[0m"
   rm response.txt
-  cat signedurl.txt
-  rm signedurl.txt
   exit 125
 fi
 
