@@ -3,7 +3,7 @@ version: '3.2'
 
 services:
   guru-shifu-flyway:
-    image: guru-shifu-db-migrations
+    image: guru-shifu-db-migrations-test
     command: -url=jdbc:mysql://guru-shifu-db:3306/guru_shifu_db -schemas=guru_shifu_db -user=guru_shifu_user -password=password -connectRetries=60 migrate
     depends_on:
       - guru-shifu-db
