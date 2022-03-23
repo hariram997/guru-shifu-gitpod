@@ -1,6 +1,0 @@
-ARG BASE_IMAGE=flyway/flyway
-FROM ${BASE_IMAGE}
-WORKDIR /flyway
-COPY ./migration ./sql
-
-ENTRYPOINT [ "flyway" ]

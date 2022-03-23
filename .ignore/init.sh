@@ -77,7 +77,7 @@ tar -xf guru-shifu.tar.gz
 echo "$(timestamp) Unzip complete"
 
 echo "Docker build for fly way migrate" 
-docker build -t guru-shifu-db-migrations-test -f Dockerfile-flyway-test .
+docker build -t guru-shifu-db-migrations -f Dockerfile-flyway .
 echo "docker flyway build done.."
 mkdir /workspace/guru-shifu-gitpod/m2-repository
 printf '<settings>\n  <localRepository>/workspace/guru-shifu-gitpod/m2-repository/</localRepository>\n</settings>\n' > /home/gitpod/.m2/settings.xml
