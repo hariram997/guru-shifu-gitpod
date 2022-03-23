@@ -78,7 +78,15 @@ echo "$(timestamp) Unzip complete"
 
 echo "Docker build for fly way migrate" 
 docker build -t guru-shifu-db-migrations -f Dockerfile-flyway .
-echo "docker flyway build done.."
+echo "docker flyway build done..."
+
+echo "Env variables from build..."
+source guru-shifu-env-variables.txt 
+
+echo "Building the backend image"
+docker build -t guru-shifu-api --build-arg USER_ID=$USER_ID  --build-arg USER_NAME=$USER_NAME --build-arg HOME_DIR=$HOME_DIR  -f Dockerfile-api .
+echo "Backend  image done"
+
 mkdir /workspace/guru-shifu-gitpod/m2-repository
 printf '<settings>\n  <localRepository>/workspace/guru-shifu-gitpod/m2-repository/</localRepository>\n</settings>\n' > /home/gitpod/.m2/settings.xml
 echo "$(timestamp) Loading guru-shifu images..."
