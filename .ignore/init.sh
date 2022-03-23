@@ -84,7 +84,15 @@ echo "Env variables from build..."
 source guru-shifu-env-variables.txt 
 
 echo "Building the backend image"
-docker build -t guru-shifu-api --build-arg USER_ID=$USER_ID  --build-arg USER_NAME=$USER_NAME --build-arg HOME_DIR=$HOME_DIR  -f Dockerfile-api .
+docker build -t guru-shifu-api \
+  --build-arg REMOTE_URL=$REMOTE_URL \
+  --build-arg ENABLE_JAR_REQUIREMENT=$ENABLE_JAR_REQUIREMENT \
+  --build-arg REMOTE_USERPOOL_URL=$REMOTE_USERPOOL_URL \
+  --build-arg USER_ID=$USER_ID \
+  --build-arg USER_NAME=$USER_NAME \
+  --build-arg HOME_DIR=$HOME_DIR \
+  --build-arg GURU_SHIFU_VERSION=$GURU_SHIFU_VERSION -f Dockerfile-api .
+
 echo "Backend  image done"
 
 mkdir /workspace/guru-shifu-gitpod/m2-repository
