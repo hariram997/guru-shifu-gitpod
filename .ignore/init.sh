@@ -84,7 +84,7 @@ echo "docker flyway build done..."
 echo "Env variables from build..."
 source guru-shifu-env-variables.txt 
 
-echo "Building the backend image"
+echo "Building the backend image..."
 docker build -q -t  guru-shifu-api \
   --build-arg REMOTE_URL=$REMOTE_URL \
   --build-arg ENABLE_JAR_REQUIREMENT=$ENABLE_JAR_REQUIREMENT \
@@ -94,16 +94,15 @@ docker build -q -t  guru-shifu-api \
   --build-arg HOME_DIR=$HOME_DIR \
   --build-arg GURU_SHIFU_VERSION=$GURU_SHIFU_VERSION -f Dockerfile-api .
 
-echo "Backend  image done"
+echo "Backend image done"
 
-echo "Building the frontend image"
+echo "Building the frontend image...."
 docker build -t guru-shifu-ui \
---build-arg GURU_SHIFU_VERSION=$GURU_SHIFU_VERSION \
---build-arg ENABLE_JAR_REQUIREMENT=$ENABLE_JAR_REQUIREMENT \
---build-arg CLIENT_ID=$CLIENT_ID \
---build-arg REMOTE_BATCHLIST_URL=$REMOTE_URL \
---build-arg ENABLE_SIGNUP_FLOW=$ENABLE_SIGNUP_FLOW \
---build-arg TARGET_ENV=${TARGET_ENV:="local"} -f Dockerfile-ui
+  --build-arg GURU_SHIFU_VERSION=$GURU_SHIFU_VERSION \
+  --build-arg ENABLE_JAR_REQUIREMENT=$ENABLE_JAR_REQUIREMENT \
+  --build-arg CLIENT_ID=$CLIENT_ID --build-arg REMOTE_BATCHLIST_URL=$REMOTE_URL \
+  --build-arg ENABLE_SIGNUP_FLOW=$ENABLE_SIGNUP_FLOW \
+  --build-arg TARGET_ENV=${TARGET_ENV:="local"} -f Dockerfile-ui .
 
 echo "Frontend Image done"
 
