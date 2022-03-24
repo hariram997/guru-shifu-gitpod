@@ -99,5 +99,5 @@ echo "Backend  image done"
 mkdir /workspace/guru-shifu-gitpod/m2-repository
 printf '<settings>\n  <localRepository>/workspace/guru-shifu-gitpod/m2-repository/</localRepository>\n</settings>\n' > /home/gitpod/.m2/settings.xml
 echo "$(timestamp) Loading guru-shifu images..."
-docker load -i guru-shifu-images.tar.gz
+docker load -i guru-shifu-images.tar.gz -q
 echo "$(timestamp) Guru-shifu images loaded successfully"
