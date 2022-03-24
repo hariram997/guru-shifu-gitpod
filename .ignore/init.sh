@@ -67,6 +67,7 @@ rm response.txt
 rm signedurl.txt
 
 echo "Artifact url obtained....."
+echo ""
 echo -e "\e[1;34m $(timestamp) --------- Downloading the artifacts ... --------------\e[0m"
 curl  --output guru-shifu.tar.gz "$ARTIFACT_URL"
 echo "$(timestamp) Artifact download complete."
@@ -77,14 +78,14 @@ tar -xf guru-shifu.tar.gz
 echo "$(timestamp) Unzip complete"
 
 echo "Docker build for fly way migrate" 
-docker build -t guru-shifu-db-migrations -f Dockerfile-flyway .
+docker build -t -q guru-shifu-db-migrations -f Dockerfile-flyway .
 echo "docker flyway build done..."
 
 echo "Env variables from build..."
 source guru-shifu-env-variables.txt 
 
 echo "Building the backend image"
-docker build -t guru-shifu-api \
+docker build -t -q guru-shifu-api \
   --build-arg REMOTE_URL=$REMOTE_URL \
   --build-arg ENABLE_JAR_REQUIREMENT=$ENABLE_JAR_REQUIREMENT \
   --build-arg REMOTE_USERPOOL_URL=$REMOTE_USERPOOL_URL \
