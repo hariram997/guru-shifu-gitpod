@@ -96,8 +96,16 @@ docker build -q -t  guru-shifu-api \
 
 echo "Backend  image done"
 
+echo "Building the frontend image"
+docker build -t guru-shifu-ui \
+--build-arg GURU_SHIFU_VERSION=$GURU_SHIFU_VERSION \
+--build-arg ENABLE_JAR_REQUIREMENT=$ENABLE_JAR_REQUIREMENT \
+--build-arg CLIENT_ID=$CLIENT_ID \
+--build-arg REMOTE_BATCHLIST_URL=$REMOTE_URL \
+--build-arg ENABLE_SIGNUP_FLOW=$ENABLE_SIGNUP_FLOW \
+--build-arg TARGET_ENV=${TARGET_ENV:="local"} -f Dockerfile-ui
+
+echo "Frontend Image done"
+
 mkdir /workspace/guru-shifu-gitpod/m2-repository
 printf '<settings>\n  <localRepository>/workspace/guru-shifu-gitpod/m2-repository/</localRepository>\n</settings>\n' > /home/gitpod/.m2/settings.xml
-echo "$(timestamp) Loading guru-shifu images..."
-docker load -i guru-shifu-images.tar.gz -q
-echo "$(timestamp) Guru-shifu images loaded successfully"
