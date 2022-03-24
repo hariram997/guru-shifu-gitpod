@@ -78,14 +78,14 @@ tar -xf guru-shifu.tar.gz
 echo "$(timestamp) Unzip complete"
 
 echo "Docker build for fly way migrate" 
-docker build -t -q guru-shifu-db-migrations -f Dockerfile-flyway .
+docker build -q -t guru-shifu-db-migrations -f Dockerfile-flyway .
 echo "docker flyway build done..."
 
 echo "Env variables from build..."
 source guru-shifu-env-variables.txt 
 
 echo "Building the backend image"
-docker build -t -q guru-shifu-api \
+docker build -q -t  guru-shifu-api \
   --build-arg REMOTE_URL=$REMOTE_URL \
   --build-arg ENABLE_JAR_REQUIREMENT=$ENABLE_JAR_REQUIREMENT \
   --build-arg REMOTE_USERPOOL_URL=$REMOTE_USERPOOL_URL \
