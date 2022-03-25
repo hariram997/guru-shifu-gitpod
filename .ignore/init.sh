@@ -106,5 +106,10 @@ docker build -q -t guru-shifu-ui \
 
 echo "Frontend Image done"
 
+rm -R ui/
+rm -R migration/
+rm Dockerfile-api Dockerfile-ui Dockerfile-flyway 
+rm guru-shifu-env-variables.txt guru-shifu.tar.gz  guru-shifu-boot-0.0.1-SNAPSHOT.jar
+
 mkdir /workspace/guru-shifu-gitpod/m2-repository
 printf '<settings>\n  <localRepository>/workspace/guru-shifu-gitpod/m2-repository/</localRepository>\n</settings>\n' > /home/gitpod/.m2/settings.xml
