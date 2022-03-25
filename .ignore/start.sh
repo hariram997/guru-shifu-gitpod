@@ -19,6 +19,12 @@ then
     printf "."
     sleep 1
   done
+  echo ""
+  until $(curl --output /dev/null --silent --head --fail http://localhost:3000/); do
+    printf "*"
+    sleep 1
+  done
+  echo ""
   echo "$(timestamp) Guru-shifu started successfully..."
 fi
 cd /workspace
