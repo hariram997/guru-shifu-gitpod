@@ -97,7 +97,7 @@ docker build -q -t  guru-shifu-api \
 echo "Backend image done"
 
 echo "Building the frontend image...."
-docker build -t guru-shifu-ui \
+docker build -q -t guru-shifu-ui \
   --build-arg GURU_SHIFU_VERSION=$GURU_SHIFU_VERSION \
   --build-arg ENABLE_JAR_REQUIREMENT=$ENABLE_JAR_REQUIREMENT \
   --build-arg CLIENT_ID=$CLIENT_ID --build-arg REMOTE_BATCHLIST_URL=$REMOTE_URL \
