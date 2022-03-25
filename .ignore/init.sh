@@ -101,7 +101,8 @@ docker build -t guru-shifu-ui \
   --build-arg GURU_SHIFU_VERSION=$GURU_SHIFU_VERSION \
   --build-arg ENABLE_JAR_REQUIREMENT=$ENABLE_JAR_REQUIREMENT \
   --build-arg CLIENT_ID=$CLIENT_ID --build-arg REMOTE_BATCHLIST_URL=$REMOTE_URL \
-  --build-arg ENABLE_SIGNUP_FLOW=$ENABLE_SIGNUP_FLOW  -f Dockerfile-ui .
+  --build-arg ENABLE_SIGNUP_FLOW=$ENABLE_SIGNUP_FLOW \
+  --build-arg TARGET_ENV=${TARGET_ENV:="local"} -f Dockerfile-ui .
 
 echo "Frontend Image done"
 
