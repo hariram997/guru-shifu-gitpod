@@ -15,7 +15,7 @@ echo "$(timestamp) Docker compose completed."
 if [ $? == 0 ]
 then
   echo "$(timestamp) Waiting for guru-shifu to start up.... "
-  until $(curl --output /dev/null --silent --head --fail http://localhost:3000/); do
+  until $(curl --output /dev/null --silent --head --fail http://localhost:8080/rectangle/feedback-history/); do
     printf "."
     sleep 1
   done
